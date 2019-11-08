@@ -2,10 +2,17 @@ require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
 
+const resources = require('./models/resource-router');
+const projects = require('./models/project-router');
+const tasks = require('./models/task-router');
+
 const server = express();
 
 server.use(helmet());
 server.use(express.json());
+server.use('/api/resources', resources);
+server.use('/api/projects', projects);
+server.use('/api/tasks', tasks);
 
 server.get('/', (req,res) => {
     res.status(200).json({message: 'Welcome to my Api'})
