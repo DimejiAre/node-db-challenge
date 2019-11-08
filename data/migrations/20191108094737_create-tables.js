@@ -21,6 +21,7 @@ exports.up = function(knex) {
             .notNullable()
             .references('id')
             .inTable('projects')
+            .onDelete('CASCADE')
     })
     .createTable('projects_resources', table => {
         table.increments()
@@ -29,11 +30,13 @@ exports.up = function(knex) {
             .notNullable()
             .references('id')
             .inTable('projects')
+            .onDelete('CASCADE')
         table.integer('resource_id')
             .unsigned()
             .notNullable()
             .references('id')
             .inTable('resources')
+            .onDelete('CASCADE')
     })
 };
 
