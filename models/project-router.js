@@ -15,6 +15,18 @@ router.get('/', async (req,res) => {
     
 })
 
+router.get('/:id/tasks', async (req,res) => {
+    try {
+        const id = req.params.id;
+        const response = await db.getTasks(id)
+        res.status(200).json(response)
+    }
+    catch (error){
+        res.status(500).json({error: `An error occurred retrieving tasks ${error}`})
+    }
+    
+})
+
 router.post('/', async (req,res) => {
     try{
         const project = req.body;
@@ -23,6 +35,17 @@ router.post('/', async (req,res) => {
     }
     catch (error){
         res.status(500).json({error: `An error occurred saving projects to DB${error}`})
+    }
+})
+
+router.post('/tasks', async (req,res) => {
+    try{
+        const task = req.body;
+        let response = await db.addTask(task)
+        res.status(201).json(response)
+    }
+    catch (error){
+        res.status(500).json({error: `An error occurred saving task to DB${error}`})
     }
 })
 
